@@ -9,12 +9,10 @@ void triSelection(int* tab)
 	{
 		// Sélection du minimum
 		int iMin = i;
-		int min = tab[i];
 		for (int j = i+1; j < TAILLE_TAB; ++j)
 		{
-			if (tab[j] < min)
+			if (tab[j] < tab[iMin])
 			{
-				min = tab[j];
 				iMin = j;
 			}
 		}
