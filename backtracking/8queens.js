@@ -1,26 +1,3 @@
-function applyChessCase(chess, func) {
-	for (var i = 0; i < n; ++i) {
-		for (var j = 0; j < n ; ++j) {
-			func(chess[i][j]);
-		}
-	}
-}
-
-function makeChess() {		
-	var chess = [];
-	for (var i = 0; i < n; ++i) {
-		chess[i] = [];
-		for (var j = 0; j < n ; ++j) {
-			chess[i][j] = 0;
-		}
-	}
-	return chess;
-}
-
-function printChess(chess) {
-	applyChessCase(chess, function(c) { console.log(c) });
-}
-
 /* Algorithm : Backtracking.
  * 1) Puts a queen in the first column.
  * 2) Tries to find a solution by deeper calls.
