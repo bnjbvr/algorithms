@@ -1,8 +1,26 @@
+/* This program can be launched with nodejs, by tpying node 8queens.js
+ * in a terminal.
+ */
+var config = {
+	/* Would you like to find just one solution or all solutions ? */
+	find_all_solutions: true,
+	
+	/* Would you like to show solutions ?
+	 * If you say no, you'll just have the number of solutions found.
+	 */
+	show_solutions: true
+};
+
 /* Algorithm : Backtracking.
  * 1) Puts a queen in the first column.
  * 2) Tries to find a solution by deeper calls.
  * 3) If the solution is accepted, stop. Otherwise, tries with another
  * choice.
+ */
+ 
+/*
+ * Acceptation function. Returns true if the queens (given as a table)
+ * can be a solution, false otherwise.
  */
 function accept(queens) {
 	for (var i = 0; i < queens.length; ++i) { 
@@ -19,6 +37,9 @@ function accept(queens) {
 	return true;
 }
 
+/*
+ * Checks whether function accept is correct.
+ */
 function testAccept() {
 	var oldN = n;
 	n = 4;
@@ -39,10 +60,15 @@ function testAccept() {
 
 var nbSolutions;
 
+/* 
+ * Backtracking function, based on the "classical model".
+ */
 function backtrack(queens) {
 	var isAccepted = accept(queens);
 	if (queens.length === n && isAccepted) {
-		console.log(queens); // if you need to show solutions
+		if (config.show_solutions) {
+			console.log(queens); // if you need to show solutions
+		}
 		nbSolutions++;
 		return true;
 	}
@@ -54,31 +80,31 @@ function backtrack(queens) {
 	var newI = queens.length;
 	queens[newI] = 0;
 	while (queens[newI] < n) {
-		///* // if you just want one solution
-		if (backtrack(queens)) {
+		if (backtrack(queens) && !config.find_all_solutions) {
 			return true; 
 		}
-		//*/
-		// backtrack(queens);
 		queens[newI]++;
 		queens.length = newI+1;
 	}
 }
 
+/*
+ * Call to backtracking function.
+ */
 function solveNqueens() {
 	nbSolutions = 0;
 	backtrack([]);
 	console.log("Number of distinct solutions : " + nbSolutions);
 }
 
-var stdin = process.openStdin();
 var n = 0;
-console.log("For which number of queens would you like to solve" +
-" the problem?");
+var presentationText = "For which number of queens would you like to solve" +
+	" the problem?";
+var stdin = process.openStdin();
+console.log(presentationText);
 stdin.on('data', function(d) {
 	n = parseInt(d);
 	console.log("Queens problem for n = " + n);
 	solveNqueens();
-	console.log("For which number of queens would you like to solve" +
-	" the problem?");
+	console.log(presentationText);
 });
