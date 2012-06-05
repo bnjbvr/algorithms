@@ -8,6 +8,7 @@ The "model algorithm" for backtracking is the following, according to
 Wikipedia :
 
 Function Backtracking (candidate : data)
+
 1. if reject(candidate), i.e candidate can't be a solution, return false.
 2. if accept(candidate), i.e candidate can be a solution, or *is* a
 solution, returns true.
@@ -19,5 +20,5 @@ solution, returns true.
 
 This version finds just one solution to the problem. If you want to
 show all solutions (which can have no sense, for instance for Sudoku
-problems which have a priori only one solution), you just have to 
+problems which have *a priori* only one solution), you just have to 
 replace 4.1) by Backtracking(nextCandidate).
