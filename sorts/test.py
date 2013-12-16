@@ -19,8 +19,9 @@ def TestArray(prog, v):
         assert(res == sortedAsString)
     except Exception as e:
         print "Error: ", e
-        print res
-        print sortedAsString
+        print "Obtained: ",res
+        print "Expected: ", sortedAsString
+        print "Command: ", ' '.join(args)
         return False
     return True
 
