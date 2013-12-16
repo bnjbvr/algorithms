@@ -1,40 +1,35 @@
-#include <iostream>
-using namespace std;
-const int TAILLE_TAB = 8;
+# include "sort.h"
 
-void triSelection(int* tab)
-// O(n²)
+class SelectionSort : public AutoSorter
 {
-	for (int i = 0; i < TAILLE_TAB-1; ++i)
-	{
-		// Sélection du minimum
-		int iMin = i;
-		for (int j = i+1; j < TAILLE_TAB; ++j)
-		{
-			if (tab[j] < tab[iMin])
-			{
-				iMin = j;
-			}
-		}
-		
-		// Permutation
-		if (i != iMin)
-		{
-			int temp = tab[i];
-			tab[i] = tab[iMin];
-			tab[iMin] = temp;
-		}
-	}
-}
+    // O(n²)
+    void sort(int size, int* tab)
+    {
+        for (int i = 0; i < size - 1; ++i)
+        {
+            // Select minimum
+            int iMin = i;
+            for (int j = i+1; j < size; ++j)
+            {
+                if (tab[j] < tab[iMin])
+                    iMin = j;
+            }
 
-int main (void)
+            // Permute
+            if (i != iMin)
+            {
+                int temp = tab[i];
+                tab[i] = tab[iMin];
+                tab[iMin] = temp;
+            }
+        }
+    }
+};
+
+int main (int argc, char **argv)
 {
-	int tab[TAILLE_TAB] = {2, 4, 3, 6, 8, 7, 1, 5};
-	triSelection(tab);
-	cout << "Tableau trié : " << endl;
-	for (int i = 0; i < TAILLE_TAB; ++i)
-	{
-		cout << tab[i] << " ";
-	}	
-	cout << endl;
+    SelectionSort sorter;
+    if (!sorter(argc, argv))
+        return -1;
+    return 0;
 }
