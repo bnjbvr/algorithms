@@ -2,38 +2,38 @@
 
 class QuickSort : public AutoSorter
 {
-    int partition( int* a, int pI, int b, int e )
+    int partition( int* array, int pivotIndex, int from, int to )
     {
-        int pivot = a[pI];
+        int pivot = array[pivotIndex];
 
-        a[pI] = a[e];
-        a[e] = pivot;
+        array[pivotIndex] = array[to];
+        array[to] = pivot;
 
-        int nI = b;
-        for(int i = b; i < e; ++i)
+        int nextIndex = from;
+        for(int i = from; i < to; ++i)
         {
-            if( a[i] < pivot ) {
-                int swp = a[nI];
-                a[nI] = a[i];
-                a[i] = swp;
-                ++nI;
+            if( array[i] < pivot ) {
+                int swp = array[nextIndex];
+                array[nextIndex] = array[i];
+                array[i] = swp;
+                ++nextIndex;
             }
         }
 
-        a[e] = a[nI];
-        a[nI] = pivot;
-        return nI;
+        array[to] = array[nextIndex];
+        array[nextIndex] = pivot;
+        return nextIndex;
     }
 
-    void sort_helper(int* a, int b, int e)
+    void sort_helper(int* a, int from, int to)
     {
-        if( b >= e )
+        if( from >= to )
             return;
 
-        int pivotIndex = e;
-        int newPivotIndex = partition(a, pivotIndex, b, e);
-        sort_helper(a, b, newPivotIndex-1);
-        sort_helper(a, newPivotIndex+1, e);
+        int pivotIndex = to;
+        int newPivotIndex = partition(a, pivotIndex, from, to);
+        sort_helper(a, from, newPivotIndex-1);
+        sort_helper(a, newPivotIndex+1, to);
     }
 
     void sort(int len, int* a)
